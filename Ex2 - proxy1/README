@@ -1,0 +1,23 @@
+Authored: Mohammad Khayyo
+Exercise Name: HTTP Proxy - Phase 1 
+Submit Files: proxy1.c, README
+
+Files Information:
+“Proxy1.c”: contains the code itself that do all the process on the string that received by the terminal and checks the URL if it exists in files, if not it brings it from socket.
+“README”: file that contains a description of the code and the functions that been used aiming to be a simulator to the proxy.
+Helping Functions:
+int StringToInt(char num[]): this method turn the String to int 
+int CountCharInString(const char* A,char c): counts how many times
+bool isCompareToSpaceOrBlank(const char* A): checks if there is empty space in the string
+bool IsASlashSpace(const char* A): checks if the string only contains spaces and dashes 
+void Free(char** AllTheWordInThePath, char* Path, char* interface, char* Host, int lengthOfThePath): free all allocation memory 
+char* separated(const char* A, char c, char** AllTheWordInThePath, char* Path, char* interface, char* Host, int lengthOfThePath): divides the string until it reaches the letter c 
+char** separatedThePath(char** Path, char* Host, char* result, char* MiniPath, char * AllTheWordInThePath, int lengthOfThePath, char* interface): divides the path to sub-strings according to dashes 
+bool Is_Path_Exist(int Strlen_Path, char** AllTheWordInThePath, int lengthOfThePath, bool O_CREAT_Boolean, char* Path, char* interface, char* Host): checks if path exists, if not it creates one according if boolean is true
+void GetFromProxy(char* Path,char** AllTheWordInThePath,char* port,char* Host,int lengthOfThePath,char* Use_Path): gets information from the files 
+void writeToFileFromSocket(int Fd_Socket, char* Path, char*AllTheWordInThePath, int lengthOfThePath, char interface, char* Host,char* Use_Path): writes inside the file the response of the server 
+void Socket(char* Host, char* Path, char* interface, char** AllTheWordInThePath, int lengthOfThePath, bool thereAreNoSlashOrSlashInTheEnd,char* Use_Path): connection to the socket and sends permission to it 
+int main(int argc, char * argv[]): checks if the url is correct, checks if there is port, and calls on functions
+
+Compiling Steps:
+gcc -Wall –o proxy1 proxy1.c

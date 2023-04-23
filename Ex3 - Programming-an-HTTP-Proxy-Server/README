@@ -1,0 +1,39 @@
+Authored: Mohammad Khayyo
+Exercise Name: Programming an HTTP Proxy Server
+Submit Files: proxyServer.c , threadpool.c , README
+=======================================================
+Description:
+HTTP proxy-server that implements a limited subset of the entire HTTP specification. 
+The proxy server gets an HTTP request from the client and performs some predefined checks on it. If the request is 
+found legal, it first searches for the requested file in its local filesystem, if it’s saved locally, the proxy creates an 
+HTTP response and return the file, otherwise, it forwards the request to the appropriate web server, and sends the 
+response back to the client. If the request is not legal, it sends an error response to the client without sending 
+anything to the server.
+=======================================================
+Files Information:
+“threadpool.c”: this file is the responsible part of the server to work on parallel
+“proxyServer.c”: this file contains the main and responsible about the clients and receive the response.
+“README”: file that contains a description of the code and the functions that been used aiming to be a simulator to the proxyServer, threadpool.
+=============================================================================
+Helping Functions:
+int initialization(int port, int pool_size, int max_requests_number): initialize the socket , setup the sever and the threadpool start  working, and receive the clients
+int IsDigits(const char * num);//check if the string has only numbers
+int checkArguments(char * argv[], int * port, int * pool_size, int * max_requests_number): check if the argument is legal or not if it is not legal returns failed , read the filter file
+int StringToInt(char num[]);// this method turn the String to int
+int Create_server(struct sockaddr_in * my_server, int * FD_Server, int port): the function create the server and setup
+int Dispatch_Client(void * arg);// function that busy working on clients
+int read_from_socket(int fd_client, char ** request_received): read the request from the client
+int check_request(char * request_received, char ** path, char ** Host, int * code): checks if the client request is proper with no errors
+int send_error_response(int fd_client, int code);//send error message if was an error while checking
+char * code_to_string(int code): convert the error to a string
+unsigned int Convert_to_binary(char * t, int num): converting the ip address to binary
+int check_is_in_the_filter(char * t,const char * Host): check if the host name was inside the filter file
+int Is_Path_Exist(char * Host, char * Path, bool O_CREAT_Boolean): checks if path exists, if not it creates one according if boolean is true
+int GetFromProxy(int fd_client, char * Host, char * Path, int * code): gets information from the files
+char * get_mime_type(char * name): give the type request (given function)
+int external_server(int fd_client, char * request_received, char * Host, char * Path): connection to the socket and sends permission to it, writes inside the file the response of the server
+int main(int argc, char * argv[]): call the initialization function and check Arguments
+===============================================================
+Compiling Steps:
+compile: gcc -Wall -Wextra -Wvla -std=c99 proxyServer.c threadpool.c -o proxyServer -pthread
+run : valgrind --track-origins=yes -s --leak-check=full --show-leak-kinds=all --show-leak-kinds=indirect,reachable ./proxyServer <port> <pool-size> <max-number-of-request> <filter>

@@ -1,0 +1,44 @@
+Authored By: Mohammad Khayyo 
+Exercise Name: NLP, Tweets Generator 
+Submit Files: tweetsGenerator.c, ReadMe.txt
+
+
+Files information: 
+•	“tweetsGenerator.c”: contains the code itself that do all the process on the string that received by the terminal and generate the new sentence according to the Markov Chain probabilities.
+•	“ReadMe.txt”: file that contain a description of the code and the functions that been used aiming to generate the sentence in a perfect model. 
+Main/Helping Functions:
+Structs:
+1.	WordStruct: contain a string, array to save the pointers of the next words.
+2.	WordProbability: contain a pointer of WordStruct, the number of the repetition of this pointer.
+3.	Node: pointer from the type WordStruct and point to the next Node 
+4.	LinkList: pointer at the first and the last Nodes, Linked List size.    
+Main functions: 
+1.	Add: Add data to new node at the end of the given link list.
+2.	Get_random_number: Get random number between 0 and max_number [0, max_number).
+3.	Get_first_random_word: Choose randomly the next word from the given dictionary, drawn uniformly.
+4.	Get_next_random_word: Choose randomly the next word. Depend on it's occurrence frequency
+5.	Generate_sentence:  Receive dictionary, generate and print to stdout random sentence out of it.
+6.	Add_word_to_probability_list: Gets 2 WordStructs. If second_word in first_word's prob_list,
+7.	 , update the existing probability value.
+8.	Fill_dictionary: Read word from the given file. Add every unique word to the dictionary.
+9.	Free_dictionary:  Free the given dictionary and all of it's content from memory.
+10.	Main:  receives the arguments and calling the functions.
+
+
+
+Helping functions: 
+1.	int StringToInt(char num[]): this method turn the String to intFindInDictionary
+2.	WordStruct* FindInDictionary(LinkList *dictionary, char *A): to find a given word in link list, and return new one if not found
+3.	int SizeOfLinkList (LinkList *dictionary): calculate the length of link listhowManyWords
+4.	int howManyWords(const char* str): the method will calculate how many words we entered through the string
+5.	char** Sentences_Splitter(char** WordInSentence, char str[]): this method will cut the sentence into words
+compiling steps:
+compile: gcc -Wall -Wextra -Wvla -std=c99 tweetsGenerator.c -o tweetsGenerator
+run: valgrind --track-origins=yes -s --leak-check=full --show-leak-kinds=all --show-leak-kinds=indirect,reachable ./tweetsGenerator <seed number> <num of tweets> <file path> < Optional- number of words to read>
+    (if no number of words, reads the All the file)
+    Example:
+   valgrind --track-origins=yes -s --leak-check=full --show-leak-kinds=all --show-leak-kinds=indirect,reachable ./tweetsGenerator 4321 200 justdoit_tweets.txt 
+
+
+
+
